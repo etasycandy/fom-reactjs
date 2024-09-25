@@ -338,7 +338,7 @@ const DetailProduct = () => {
 
       <div className="p-8 container m-auto mb-8 rounded-md shadow-sm bg-white antialiased">
         <Tabs value="thông tin chi tiết">
-          <TabsHeader className="w-[90%] m-auto mb-4 lg:w-1/2">
+          <TabsHeader className="w-[90%] m-auto mb-4 lg:w-1/2 z-0">
             {data.map(({ label, value }) => (
               <Tab key={value} value={value} className="font-semibold text-md">
                 {label}

@@ -8,7 +8,6 @@ import {
   TabsHeader,
   Typography,
 } from "@material-tailwind/react";
-import { images } from "../assets/images";
 import CardProduct from "./CardProduct";
 import { useState } from "react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
@@ -65,7 +64,7 @@ const SuggestProducts = () => {
         </Typography>
 
         <Tabs value="flash sale">
-          <TabsHeader className="w-[90%] m-auto mb-4 lg:w-1/2">
+          <TabsHeader className="w-[90%] m-auto mb-4 lg:w-1/2 z-0">
             {data.map(({ label, value }) => (
               <Tab key={value} value={value} className="font-semibold text-md">
                 {label}
