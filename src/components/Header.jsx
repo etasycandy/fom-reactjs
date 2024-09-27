@@ -1,16 +1,23 @@
 import { Link } from "react-router-dom";
 import { images } from "../assets/images";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Avatar,
   Button,
   Card,
   Drawer,
   IconButton,
+  Menu,
+  MenuHandler,
+  MenuList,
   Typography,
 } from "@material-tailwind/react";
 
+import categoriesData from "../assets/fake-data/categories";
+
 const Header = () => {
+  const categories = categoriesData.getAll();
+
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -29,6 +36,24 @@ const Header = () => {
 
   const handleMinus = () => {
     setQty((prevQty) => (prevQty > 1 ? prevQty - 1 : 1));
+  };
+
+  // Check login
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const authStorage = sessionStorage.getItem("auth");
+    if (authStorage) {
+      setIsLoggedIn(true);
+      setUser(JSON.parse(authStorage));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+
+    sessionStorage.removeItem("auth");
   };
 
   return (
@@ -105,7 +130,7 @@ const Header = () => {
         <div className="w-full bg-white shadow-sm h-fit rounded-none py-2 px-4">
           <div className="container grid grid-cols-12 justify-between items-center m-auto">
             <div className="col-span-11 md:col-span-3 lg:col-span-2 justify-center items-center">
-              <Link to="/" className="logo flex justify-center">
+              <Link to="/fom-reactjs" className="logo flex justify-center">
                 <img src={images.logo} alt="logoFOM" className="w-40" />
               </Link>
             </div>
@@ -165,22 +190,6 @@ const Header = () => {
             </form>
 
             <div className="col-span-2 lg:col-span-3 hidden lg:flex justify-end items-center gap-6">
-              <Link to="/" className="w-7">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="gray"
-                  className="size-6 hover:stroke-blue-500 duration-500"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                  />
-                </svg>
-              </Link>
               <div className="w-7 cursor-pointer" onClick={openCart}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -197,62 +206,106 @@ const Header = () => {
                   />
                 </svg>
               </div>
-              <button
-                className="w-7"
-                id="dropdownHoverUser"
-                data-dropdown-toggle="dropdownShowUser"
-                data-dropdown-trigger="hover"
-                type="button"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="gray"
-                  className="size-6 hover:stroke-blue-500 duration-500"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                  />
-                </svg>
-              </button>
-              <div
-                id="dropdownShowUser"
-                className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-              >
-                <ul
-                  className=" text-sm text-gray-700 dark:text-gray-200"
-                  aria-labelledby="dropdownHoverUser"
-                >
-                  <li>
-                    <a
-                      href="#"
-                      className="block rounded-sm px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              {isLoggedIn ? (
+                <Menu placement="bottom-end">
+                  <MenuHandler>
+                    <Avatar
+                      size="sm"
+                      src={user.data.avt}
+                      alt="avatar"
+                      className="w-8 h-8 cursor-pointer"
+                    />
+                  </MenuHandler>
+                  <MenuList className="p-0">
+                    <Link
+                      to="/fom-reactjs/account"
+                      className="px-4 py-3 text-sm text-gray-900 flex items-center gap-4"
                     >
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block rounded-sm px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      <Avatar size="sm" src={user.data.avt} alt="avatar" />
+                      <div className="truncate ... font-semibold">
+                        {user.data.fullName}
+                      </div>
+                    </Link>
+                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200 border-y">
+                      <li>
+                        <Link
+                          to="/fom-reactjs/like-list"
+                          className="px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill=""
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="h-5 w-5 mb-[2px]"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                            />
+                          </svg>
+                          Yêu thích
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/fom-reactjs/settings"
+                          className="px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={2}
+                            stroke="currentColor"
+                            className="h-5 w-5 mb-[2px]"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M4.5 12a7.5 7.5 0 0 0 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077 1.41-.513m14.095-5.13 1.41-.513M5.106 17.785l1.15-.964m11.49-9.642 1.149-.964M7.501 19.795l.75-1.3m7.5-12.99.75-1.3m-6.063 16.658.26-1.477m2.605-14.772.26-1.477m0 17.726-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205 12 12m6.894 5.785-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495"
+                            />
+                          </svg>
+                          Cài đặt
+                        </Link>
+                      </li>
+                    </ul>
+                    <div
+                      className="px-5 py-2.5 text-sm text-gray-700 flex items-center gap-2 cursor-pointer hover:bg-red-500 hover:text-white hover:rounded-b-lg"
+                      onClick={handleLogout}
                     >
-                      Supports
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block rounded-sm px-4 py-2 hover:bg-red-600 hover:text-white"
-                    >
+                      <i className="fa-solid fa-right-from-bracket"></i>
                       Sign out
-                    </a>
-                  </li>
-                </ul>
-              </div>
+                    </div>
+                  </MenuList>
+                </Menu>
+              ) : (
+                <Link to="/fom-reactjs/login">
+                  <Button
+                    size="md"
+                    color="blue"
+                    className="flex items-center justify-center gap-1 py-2 px-3 rounded-md"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      className="h-5 w-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                      />
+                    </svg>
+                    Đăng nhập
+                  </Button>
+                </Link>
+              )}
             </div>
 
             {/* Icon menu */}
@@ -277,171 +330,34 @@ const Header = () => {
           <hr className="hidden xl:block" />
           <div className="container hidden xl:flex justify-center items-center mt-2 m-auto pb-1">
             <ul className="flex justify-between items-center gap-8">
-              <li
-                className="flex gap-1 text-sm font-medium cursor-pointer item-menu hover:text-blue-400"
-                id="dropdownHoverButton"
-                data-dropdown-toggle="dropdownHover"
-                data-dropdown-trigger="hover"
-                type="button"
-              >
-                <p>Thực phẩm chức năng</p>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="size-6 w-5"
+              {categories.map((category, index) => (
+                <Link
+                  key={index}
+                  to={`/fom-reactjs/categories/${category.slug}`}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </li>
-              <li
-                className="flex gap-1 text-sm font-medium cursor-pointer item-menu hover:text-blue-400"
-                id="dropdownHoverButton1"
-                data-dropdown-toggle="dropdownHover1"
-                data-dropdown-trigger="hover"
-                type="button"
-              >
-                <p>Vật tư y tế</p>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="size-6 w-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </li>
-              <li
-                className="flex gap-1 text-sm font-medium cursor-pointer item-menu hover:text-blue-400"
-                id="dropdownHoverButton2"
-                data-dropdown-toggle="dropdownHover2"
-                data-dropdown-trigger="hover"
-                type="button"
-              >
-                <p>Dược mỹ phẩm</p>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="size-6 w-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </li>
-              <li
-                className="flex gap-1 text-sm font-medium cursor-pointer item-menu hover:text-blue-400"
-                id="dropdownHoverButton3"
-                data-dropdown-toggle="dropdownHover3"
-                data-dropdown-trigger="hover"
-                type="button"
-              >
-                <p>Chăm sóc cá nhân</p>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="size-6 w-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </li>
-              <li
-                className="flex gap-1 text-sm font-medium cursor-pointer item-menu hover:text-blue-400"
-                id="dropdownHoverButton4"
-                data-dropdown-toggle="dropdownHover4"
-                data-dropdown-trigger="hover"
-                type="button"
-              >
-                <p>Nhà thuốc tại các khu vực</p>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="size-6 w-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </li>
-              <li
-                className="flex gap-1 text-sm font-medium cursor-pointer item-menu hover:text-blue-400"
-                id="dropdownHoverButton5"
-                data-dropdown-toggle="dropdownHover5"
-                data-dropdown-trigger="hover"
-                type="button"
-              >
-                <p>Ưu đãi hiện có</p>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="size-6 w-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </li>
+                  <li
+                    className="flex gap-1 text-sm font-medium cursor-pointer item-menu hover:text-blue-400"
+                    type="button"
+                  >
+                    <p>{category.name}</p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      className="size-6 w-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                      />
+                    </svg>
+                  </li>
+                </Link>
+              ))}
             </ul>
-
-            {/* Drop down item menu */}
-            <div
-              id="dropdownHover"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 h-10 dark:bg-gray-700"
-            ></div>
-            <div
-              id="dropdownHover1"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 h-10 dark:bg-gray-700"
-            ></div>
-            <div
-              id="dropdownHover2"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 h-10 dark:bg-gray-700"
-            ></div>
-            <div
-              id="dropdownHover3"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 h-10 dark:bg-gray-700"
-            ></div>
-            <div
-              id="dropdownHover4"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 h-10 dark:bg-gray-700"
-            ></div>
-            <div
-              id="dropdownHover5"
-              className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 h-10 dark:bg-gray-700"
-            ></div>
           </div>
         </div>
       </div>
@@ -564,6 +480,7 @@ const Header = () => {
         }`}
       ></div>
 
+      {/* Cart */}
       <Drawer
         overlayProps={{
           className: "fixed",
@@ -684,14 +601,15 @@ const Header = () => {
             </Button>
 
             <Link
-              to="/"
+              to="/fom-reactjs/cart"
               className="flex justify-center items-center gap-1 mb-4 text-blue-500 hover:text-blue-600"
+              onClick={closeCart}
             >
               <Typography
                 variant="lead"
                 className="text-center text-md font-bold"
               >
-                Tiếp tục mua hàng
+                Chi tiết giỏ hàng
               </Typography>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 const CardProduct = ({ item }) => {
   return (
     <Card className="w-full">
-      <Link to={`/product/${item.slug}`}>
+      <Link to={`/fom-reactjs/product/${item.slug}`}>
         <CardHeader
           shadow={false}
           floated={false}

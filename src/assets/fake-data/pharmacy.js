@@ -1,6 +1,6 @@
 import { images } from "../images";
 
-const pharmacy = [
+const pharmacyData = [
   {
     id: "1",
     name: "Nhà thuốc Phúc Long",
@@ -44,6 +44,10 @@ const pharmacy = [
     desc: "description",
   },
 ];
+
+localStorage.setItem("pharmacy", JSON.stringify(pharmacyData));
+
+const pharmacy = JSON.parse(localStorage.getItem("pharmacy"));
 
 const getAll = () => pharmacy;
 

@@ -16,6 +16,7 @@ import vaccineIcon from "./icons/vaccine-icon.webp";
 import documentIcon from "./icons/document-icon.webp";
 import phuclong from "./pharmacy-phuclong.jpg";
 import bestSeller1 from "./best-seller1.png";
+import loginImage from "./login-image.svg";
 
 // Image Products
 import kienCoVuong from "./kien-cot-vuong.webp";
@@ -28,6 +29,7 @@ export const images = {
   bgIntro: bgIntro,
   logo: logo,
   logoF: logoF,
+  loginImage: loginImage,
   carousel: {
     image1: carousel1,
     image2: carousel2,
@@ -60,5 +62,11 @@ export const images = {
     kienCoVuong2: kienCoVuong2,
     kienCoVuong3: kienCoVuong3,
     kienCoVuong4: kienCoVuong4,
+  },
+  categories: {
+    banner1: carousel1,
+  },
+  accounts: {
+    avt1: carousel1,
   },
 };

@@ -1,6 +1,6 @@
 import { images } from "../images";
 
-const products = [
+const productsData = [
   {
     id: "1",
     name: "Viên uống Kiện cốt Vương hỗ trợ giảm triệu chứng đau nhức khớp (hộp 45 viên)",
@@ -36,7 +36,7 @@ const products = [
     images: [images.bestSeller.image1],
     slug: "thuoc-so",
     pharmacySlug: "gongcha",
-    categorySlug: "thuc-pham-chuc-nang",
+    categorySlug: "cham-soc-ca-nhan",
     qtySold: 4,
     reviews: ["review1", "review2"],
     warehouse: 0,
@@ -55,7 +55,7 @@ const products = [
     images: [images.bestSeller.image1],
     slug: "thuoc-lac",
     pharmacySlug: "phuc-long",
-    categorySlug: "thuc-pham-chuc-nang",
+    categorySlug: "duoc-my-pham",
     qtySold: 0,
     reviews: ["review1", "review2"],
     warehouse: 50,
@@ -103,6 +103,10 @@ const products = [
       "Kiện Cốt Vương hỗ trợ giảm triệu chứng đau nhức khớp do viêm khớp, thoái hóa khớp. Hỗ trợ g",
   },
 ];
+
+localStorage.setItem("products", JSON.stringify(productsData));
+
+const products = JSON.parse(localStorage.getItem("products"));
 
 const getAll = () => products;
 

@@ -56,7 +56,7 @@ const Pharmacy = () => {
           {infoPharmacy.map((item, index) => {
             return (
               <Link
-                to={`/pharmacy/${item.slug}`}
+                to={`/fom-reactjs/pharmacy/${item.slug}`}
                 className="item flex flex-col justify-center items-center gap-4 mx-5 font-bold text-lg"
                 key={index}
               >
