@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-// import IntroPage from "./pages/IntroPage";
+
 import HomePage from "./pages/HomePage";
 import PharmacyPage from "./pages/PharmacyPage";
 import Header from "./components/Header";

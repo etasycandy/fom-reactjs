@@ -3,6 +3,7 @@ import { images } from "../assets/images";
 import { useEffect, useState } from "react";
 import {
   Avatar,
+  Badge,
   Button,
   Card,
   Drawer,
@@ -14,6 +15,8 @@ import {
 } from "@material-tailwind/react";
 
 import categoriesData from "../assets/fake-data/categories";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart } from "../redux/action";
 
 const Header = () => {
   const categories = categoriesData.getAll();
@@ -54,6 +57,15 @@ const Header = () => {
     setIsLoggedIn(false);
 
     sessionStorage.removeItem("auth");
+  };
+
+  // Cart
+  const dispatch = useDispatch();
+
+  const cartItems = useSelector((state) => state.cart);
+
+  const handleRemoveFromCart = (productId) => {
+    dispatch(removeFromCart(productId));
   };
 
   return (
@@ -191,21 +203,30 @@ const Header = () => {
 
             <div className="col-span-2 lg:col-span-3 hidden lg:flex justify-end items-center gap-6">
               <div className="w-7 cursor-pointer" onClick={openCart}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="gray"
-                  className="size-6 hover:stroke-blue-500 duration-500"
+                <Badge
+                  overlap="circular"
+                  placement="bottom-end"
+                  content={cartItems.length}
+                  withBorder
+                  className="p-1 rounded-full w-6 h-6 cursor-pointer"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                  />
-                </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="gray"
+                    className="w-7 h-7 hover:stroke-blue-500 duration-500"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                    />
+                  </svg>
+                </Badge>
               </div>
+
               {isLoggedIn ? (
                 <Menu placement="bottom-end">
                   <MenuHandler>
@@ -219,14 +240,14 @@ const Header = () => {
                   <MenuList className="p-0">
                     <Link
                       to="/fom-reactjs/account"
-                      className="px-4 py-3 text-sm text-gray-900 flex items-center gap-4"
+                      className="px-4 py-3 text-sm text-gray-900 flex items-center gap-4 outline-none"
                     >
                       <Avatar size="sm" src={user.data.avt} alt="avatar" />
                       <div className="truncate ... font-semibold">
                         {user.data.fullName}
                       </div>
                     </Link>
-                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200 border-y">
+                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200 border-y outline-none">
                       <li>
                         <Link
                           to="/fom-reactjs/like-list"
@@ -273,7 +294,7 @@ const Header = () => {
                       </li>
                     </ul>
                     <div
-                      className="px-5 py-2.5 text-sm text-gray-700 flex items-center gap-2 cursor-pointer hover:bg-red-500 hover:text-white hover:rounded-b-lg"
+                      className="px-5 py-2.5 text-sm text-gray-700 flex items-center gap-2 cursor-pointer hover:bg-red-500 hover:text-white hover:rounded-b-lg outline-none"
                       onClick={handleLogout}
                     >
                       <i className="fa-solid fa-right-from-bracket"></i>
@@ -514,68 +535,87 @@ const Header = () => {
               </svg>
             </IconButton>
           </div>
-          <Card color="transparent" shadow={false}>
-            <div className="flex items-center gap-4">
-              <Avatar
-                size="xl"
-                src="https://docs.material-tailwind.com/img/face-2.jpg"
-                alt="avatar"
-                variant="rounded"
-              />
-              <div className="w-3/4">
-                <div className="w-full flex justify-between gap-4">
-                  <Link to="/" className="w-2/3">
+
+          {cartItems.map((item, index) => (
+            <Card
+              key={index}
+              color="transparent"
+              shadow={false}
+              className="mb-4 border-b pb-4 rounded-none"
+            >
+              <div className="flex items-center gap-4">
+                <Avatar
+                  size="xl"
+                  src={item.images[0]}
+                  alt="avatar"
+                  variant="rounded"
+                />
+                <div className="w-3/4">
+                  <div className="w-full flex justify-between gap-4">
+                    <Link to="/" className="w-2/3">
+                      <Typography
+                        color="blue-gray"
+                        className="font-medium text-md hover:text-blue-500 truncate ..."
+                      >
+                        {item.name}
+                      </Typography>
+                    </Link>
                     <Typography
                       color="blue-gray"
-                      className="font-medium text-md hover:text-blue-500 truncate ..."
+                      className="font-medium text-md"
                     >
-                      Throwback Hip Bagaa aaaaaaaaaaaaaaaaaa
+                      {new Intl.NumberFormat("vi-VN").format(item.sale)}đ
                     </Typography>
-                  </Link>
-                  <Typography color="blue-gray" className="font-medium text-md">
-                    100.000đ
-                  </Typography>
-                </div>
-                <Typography
-                  variant="small"
-                  className="text-[0.9rem] font-light italic mb-2"
-                >
-                  Hộp
-                </Typography>
-                <div className="flex justify-between items-center w-full">
-                  <div className="flex items-center gap-1">
-                    <i
-                      onClick={handleMinus}
-                      className="fa-solid fa-minus cursor-pointer text-white hover:bg-orange-600 py-1 px-2 rounded-md bg-orange-500"
-                    ></i>
-                    <Typography color="blue" className="mx-3 font-bold text-xl">
-                      {qty}
-                    </Typography>
-                    <i
-                      onClick={handlePlus}
-                      className="fa-solid fa-plus cursor-pointer text-white hover:bg-blue-600 py-1 px-2 rounded-md bg-blue-500"
-                    ></i>
                   </div>
-                  <Button variant="gradient" color="orange" size="sm">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2}
-                      stroke="currentColor"
-                      className="w-4 h-4"
+                  <Typography
+                    variant="small"
+                    className="text-[0.9rem] font-light italic mb-2"
+                  >
+                    {item.types[0]}
+                  </Typography>
+                  <div className="flex justify-between items-center w-full">
+                    <div className="flex items-center gap-1">
+                      <i
+                        onClick={handleMinus}
+                        className="fa-solid fa-minus cursor-pointer text-white hover:bg-orange-600 py-1 px-2 rounded-md bg-orange-500"
+                      ></i>
+                      <Typography
+                        color="blue"
+                        className="mx-3 font-bold text-xl"
+                      >
+                        {qty}
+                      </Typography>
+                      <i
+                        onClick={handlePlus}
+                        className="fa-solid fa-plus cursor-pointer text-white hover:bg-blue-600 py-1 px-2 rounded-md bg-blue-500"
+                      ></i>
+                    </div>
+                    <Button
+                      variant="gradient"
+                      color="orange"
+                      size="sm"
+                      onClick={() => handleRemoveFromCart(item.id)}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                      />
-                    </svg>
-                  </Button>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="w-4 h-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                        />
+                      </svg>
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          ))}
 
           {/* Footer Cart */}
           <div className="w-full border-t px-5 py-3 absolute bottom-0 left-0 ">

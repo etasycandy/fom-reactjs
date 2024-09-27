@@ -7,9 +7,30 @@ import {
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { addToCart } from "../redux/action";
+import { Bounce, toast } from "react-toastify";
 
 const CardProduct = ({ item }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(item));
+
+    toast.success(`Successfully added to cart`, {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  };
+
   return (
     <Card className="w-full">
       <Link to={`/fom-reactjs/product/${item.slug}`}>
@@ -120,6 +141,7 @@ const CardProduct = ({ item }) => {
           size="lg"
           fullWidth={true}
           className="bg-gradient-to-b from-[#458bec] to-[#2469de]"
+          onClick={handleAddToCart}
         >
           Add to cart
         </Button>
