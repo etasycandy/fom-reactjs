@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/useForm";
 import { images } from "../assets/images";
+import { Helmet } from "react-helmet-async";
 
 const LoginPage = () => {
   // Show password
@@ -55,6 +56,9 @@ const LoginPage = () => {
 
   return (
     <div className="grid lg:grid-cols-2 items-center gap-10 p-8">
+      <Helmet>
+        <title>FOM - Đăng nhập</title>
+      </Helmet>
       <section className="order-2 lg:order-1 h-fit grid text-center items-center p-8 bg-white rounded-xl shadow-md">
         <Typography variant="h3" color="blue-gray" className="mb-2 mt-3">
           Sign In

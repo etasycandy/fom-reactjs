@@ -7,13 +7,49 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_TO_CART":
-      return { ...state, cart: [...state.cart, action.payload] };
+    case "ADD_TO_CART": {
+      const existingProduct = state.cart.find(
+        (item) => item.product.id === action.payload.product.id,
+      );
+
+      console.log(state.cart);
+
+      if (existingProduct) {
+        return {
+          ...state,
+          cart: state.cart.map((item) =>
+            item.product.id === action.payload.product.id
+              ? {
+                  ...item,
+                  quantity: item.quantity + action.payload.quantity,
+                }
+              : item,
+          ),
+        };
+      } else {
+        return {
+          ...state,
+          cart: [...state.cart, { ...action.payload }],
+        };
+      }
+    }
     case "REMOVE_FROM_CART":
       return {
         ...state,
-        cart: state.cart.filter((item) => item.id !== action.payload),
+        cart: state.cart.filter((item) => item.product.id !== action.payload),
       };
+    case "UPDATE_QUANTITY": {
+      return {
+        ...state,
+        cart: state.cart
+          .map((item) =>
+            item.product.id === action.payload.id
+              ? { ...item, quantity: item.quantity + action.payload.quantity }
+              : item,
+          )
+          .filter((item) => item.quantity > 0),
+      };
+    }
     default:
       return state;
   }

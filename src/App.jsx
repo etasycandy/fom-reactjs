@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 
 import HomePage from "./pages/HomePage";
 import PharmacyPage from "./pages/PharmacyPage";
@@ -36,30 +37,32 @@ const AuthLayout = () => {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/fom-reactjs" element={<HomePage />} />
-          <Route
-            path="/fom-reactjs/pharmacy/:slug"
-            element={<PharmacyPage />}
-          />
-          <Route
-            path="/fom-reactjs/categories/:slug"
-            element={<CategoriesPage />}
-          />
-          <Route
-            path="/fom-reactjs/product/:slug"
-            element={<DetailProduct />}
-          />
-          <Route path="/fom-reactjs/cart" element={<CartPage />} />
-        </Route>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/fom-reactjs" element={<HomePage />} />
+            <Route
+              path="/fom-reactjs/pharmacy/:slug"
+              element={<PharmacyPage />}
+            />
+            <Route
+              path="/fom-reactjs/categories/:slug"
+              element={<CategoriesPage />}
+            />
+            <Route
+              path="/fom-reactjs/product/:slug"
+              element={<DetailProduct />}
+            />
+            <Route path="/fom-reactjs/cart" element={<CartPage />} />
+          </Route>
 
-        <Route element={<AuthLayout />}>
-          <Route path="/fom-reactjs/login" element={<LoginPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          <Route element={<AuthLayout />}>
+            <Route path="/fom-reactjs/login" element={<LoginPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

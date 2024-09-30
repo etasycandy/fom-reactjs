@@ -16,7 +16,12 @@ const CardProduct = ({ item }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addToCart(item));
+    const addItem = {
+      product: item,
+      quantity: 1,
+    };
+
+    dispatch(addToCart(addItem));
 
     toast.success(`Successfully added to cart`, {
       position: "top-center",

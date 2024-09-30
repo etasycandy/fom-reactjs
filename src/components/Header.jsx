@@ -31,16 +31,6 @@ const Header = () => {
   const openCart = () => setOpen(true);
   const closeCart = () => setOpen(false);
 
-  let [qty, setQty] = useState(1);
-
-  const handlePlus = () => {
-    setQty((prevQty) => prevQty + 1);
-  };
-
-  const handleMinus = () => {
-    setQty((prevQty) => (prevQty > 1 ? prevQty - 1 : 1));
-  };
-
   // Check login
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState();
@@ -68,8 +58,23 @@ const Header = () => {
     dispatch(removeFromCart(productId));
   };
 
+  const handlePlus = (productId) => {
+    dispatch({
+      type: "UPDATE_QUANTITY",
+      payload: { id: productId, quantity: 1 },
+    });
+  };
+
+  const handleMinus = (productId) => {
+    dispatch({
+      type: "UPDATE_QUANTITY",
+      payload: { id: productId, quantity: -1 },
+    });
+  };
+
   return (
     <>
+      {/* Header */}
       <div className="sticky top-0 z-20 h-fit max-w-full animate-fade-down animate-duration-[600ms]">
         <div className="bg-gradient-to-b from-[#458bec] to-[#2469de] w-full h-fit py-2">
           <div className="container flex justify-between m-auto h-[16px]">
@@ -546,7 +551,7 @@ const Header = () => {
               <div className="flex items-center gap-4">
                 <Avatar
                   size="xl"
-                  src={item.images[0]}
+                  src={item.product.images[0]}
                   alt="avatar"
                   variant="rounded"
                 />
@@ -557,36 +562,37 @@ const Header = () => {
                         color="blue-gray"
                         className="font-medium text-md hover:text-blue-500 truncate ..."
                       >
-                        {item.name}
+                        {item.product.name}
                       </Typography>
                     </Link>
                     <Typography
                       color="blue-gray"
                       className="font-medium text-md"
                     >
-                      {new Intl.NumberFormat("vi-VN").format(item.sale)}đ
+                      {new Intl.NumberFormat("vi-VN").format(item.product.sale)}
+                      đ
                     </Typography>
                   </div>
                   <Typography
                     variant="small"
                     className="text-[0.9rem] font-light italic mb-2"
                   >
-                    {item.types[0]}
+                    {item.product.types[0]}
                   </Typography>
                   <div className="flex justify-between items-center w-full">
                     <div className="flex items-center gap-1">
                       <i
-                        onClick={handleMinus}
+                        onClick={() => handleMinus(item.product.id)}
                         className="fa-solid fa-minus cursor-pointer text-white hover:bg-orange-600 py-1 px-2 rounded-md bg-orange-500"
                       ></i>
                       <Typography
                         color="blue"
                         className="mx-3 font-bold text-xl"
                       >
-                        {qty}
+                        {item.quantity}
                       </Typography>
                       <i
-                        onClick={handlePlus}
+                        onClick={() => handlePlus(item.product.id)}
                         className="fa-solid fa-plus cursor-pointer text-white hover:bg-blue-600 py-1 px-2 rounded-md bg-blue-500"
                       ></i>
                     </div>
@@ -594,7 +600,7 @@ const Header = () => {
                       variant="gradient"
                       color="orange"
                       size="sm"
-                      onClick={() => handleRemoveFromCart(item.id)}
+                      onClick={() => handleRemoveFromCart(item.product.id)}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
