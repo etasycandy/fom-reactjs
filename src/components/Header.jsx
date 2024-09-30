@@ -569,7 +569,9 @@ const Header = () => {
                       color="blue-gray"
                       className="font-medium text-md"
                     >
-                      {new Intl.NumberFormat("vi-VN").format(item.product.sale)}
+                      {new Intl.NumberFormat("vi-VN").format(
+                        item.product.sale * item.quantity,
+                      )}
                       đ
                     </Typography>
                   </div>
