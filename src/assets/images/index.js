@@ -1,13 +1,11 @@
 import bgIntro from "./knights-canyon-challenge-dragon-digital-painting.svg";
 import logo from "./logo.png";
 import logoF from "./logoF.png";
-import carousel1 from "./1.jpg";
-import carousel2 from "./2.jpg";
-import carousel3 from "./3.jpg";
-import carousel4 from "./4.jpg";
-import carousel5 from "./5.jpg";
+import carousel1 from "./1.png";
+import carousel2 from "./2.png";
+import carousel3 from "./3.png";
 import banner1 from "./banner01.webp";
-import banner2 from "./banner02.webp";
+import banner2 from "./banner02.jpg";
 import medicineIcon from "./icons/medicine-icon.webp";
 import pharmacistIcon from "./icons/pharmacist-icon.webp";
 import locationIcon from "./icons/location-icon.webp";
@@ -34,8 +32,6 @@ export const images = {
     image1: carousel1,
     image2: carousel2,
     image3: carousel3,
-    image4: carousel4,
-    image5: carousel5,
   },
   banner: {
     banner1: banner1,

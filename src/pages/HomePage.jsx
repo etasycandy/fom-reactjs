@@ -10,8 +10,6 @@ const HomePage = () => {
     { image: images.carousel.image1, alt: "banner-01" },
     { image: images.carousel.image2, alt: "banner-02" },
     { image: images.carousel.image3, alt: "banner-03" },
-    { image: images.carousel.image4, alt: "banner-04" },
-    { image: images.carousel.image5, alt: "banner-05" },
   ];
 
   window.scrollTo(0, 0);
