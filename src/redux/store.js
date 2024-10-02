@@ -3,6 +3,14 @@ import { thunk } from "redux-thunk";
 
 const initialState = {
   cart: JSON.parse(localStorage.getItem("cart")) || [],
+  totalPrice: 0,
+};
+
+const calculateTotalPrice = (cart) => {
+  return cart.reduce(
+    (total, item) => total + item.product.sale * item.quantity,
+    0,
+  );
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -12,44 +20,55 @@ const cartReducer = (state = initialState, action) => {
         (item) => item.product.id === action.payload.product.id,
       );
 
-      console.log(state.cart);
+      let updatedCart;
 
       if (existingProduct) {
-        return {
-          ...state,
-          cart: state.cart.map((item) =>
-            item.product.id === action.payload.product.id
-              ? {
-                  ...item,
-                  quantity: item.quantity + action.payload.quantity,
-                }
-              : item,
-          ),
-        };
+        updatedCart = state.cart.map((item) =>
+          item.product.id === action.payload.product.id
+            ? {
+                ...item,
+                quantity: item.quantity + action.payload.quantity,
+              }
+            : item,
+        );
       } else {
-        return {
-          ...state,
-          cart: [...state.cart, { ...action.payload }],
-        };
+        updatedCart = [...state.cart, { ...action.payload }];
       }
-    }
-    case "REMOVE_FROM_CART":
+
       return {
         ...state,
-        cart: state.cart.filter((item) => item.product.id !== action.payload),
+        cart: updatedCart,
+        totalPrice: calculateTotalPrice(updatedCart),
       };
+    }
+
+    case "REMOVE_FROM_CART": {
+      const updatedCart = state.cart.filter(
+        (item) => item.product.id !== action.payload,
+      );
+      return {
+        ...state,
+        cart: updatedCart,
+        totalPrice: calculateTotalPrice(updatedCart),
+      };
+    }
+
     case "UPDATE_QUANTITY": {
+      const updatedCart = state.cart
+        .map((item) =>
+          item.product.id === action.payload.id
+            ? { ...item, quantity: item.quantity + action.payload.quantity }
+            : item,
+        )
+        .filter((item) => item.quantity > 0);
+
       return {
         ...state,
-        cart: state.cart
-          .map((item) =>
-            item.product.id === action.payload.id
-              ? { ...item, quantity: item.quantity + action.payload.quantity }
-              : item,
-          )
-          .filter((item) => item.quantity > 0),
+        cart: updatedCart,
+        totalPrice: calculateTotalPrice(updatedCart),
       };
     }
+
     default:
       return state;
   }

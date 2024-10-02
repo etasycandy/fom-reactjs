@@ -53,6 +53,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const cartItems = useSelector((state) => state.cart);
+  const totalPrice = useSelector((state) => state.totalPrice);
 
   const handleRemoveFromCart = (productId) => {
     dispatch(removeFromCart(productId));
@@ -628,7 +629,7 @@ const Header = () => {
           {/* Footer Cart */}
           <div className="w-full border-t px-5 py-3 absolute bottom-0 left-0 ">
             <Typography variant="h5" className="float-right text-lg">
-              500.000đ
+              {new Intl.NumberFormat("vi-VN").format(totalPrice)}đ
             </Typography>
             <Typography variant="h5" className="text-lg">
               Tổng tiền:
