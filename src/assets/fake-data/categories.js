@@ -31,9 +31,9 @@ const categoriesData = [
   },
   {
     id: "5",
-    name: "Nhà thuốc tại các khu vực",
+    name: "Thuốc không kê đơn",
     uri: images.categories.banner1,
-    slug: "nha-thuoc-tai-ca-khu-vuc",
+    slug: "thuoc-khong-ke-don",
     desc: "description",
   },
   {

@@ -10,6 +10,7 @@ import DetailProduct from "./pages/DetailProduct";
 import CategoriesPage from "./pages/CategoriesPage";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
+import PurchasesPage from "./pages/PurchasesPage";
 
 const MainLayout = () => {
   return (
@@ -55,6 +56,7 @@ function App() {
               element={<DetailProduct />}
             />
             <Route path="/fom-reactjs/cart" element={<CartPage />} />
+            <Route path="/fom-reactjs/purchases" element={<PurchasesPage />} />
           </Route>
 
           <Route element={<AuthLayout />}>

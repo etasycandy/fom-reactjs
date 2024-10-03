@@ -1,7 +1,7 @@
 import { Button, IconButton, Tooltip } from "@material-tailwind/react";
 import pharmacyData from "../assets/fake-data/pharmacy";
 import productsData from "../assets/fake-data/products";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import CardProduct from "../components/CardProduct";
@@ -39,35 +39,14 @@ const PharmacyPage = () => {
 
   return (
     <>
-      <section className="relative bg-white h-64 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]">
-        <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
-          <h1 className="mb-2 text-4xl stroke-2 stroke-blue-500 font-extrabold uppercase tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
+      <section className="relative bg-white h-64">
+        <div className="h-64 flex flex-col justify-center items-center gap-5 py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
+          <h1 className="text-4xl stroke-2 stroke-blue-500 font-extrabold uppercase tracking-tight leading-none text-white  md:text-5xl lg:text-6xl [text-shadow:_0_2px_4px_rgb(99_102_241_/_0.8)]">
             {pharmacy.name}
           </h1>
-          <p className="mb-2 text-lg font-normal text-gray-200 lg:text-xl sm:px-16 lg:px-48">
+          <p className="text-lg font-medium text-gray-100 lg:text-xl sm:px-16 lg:px-48 [text-shadow:_0_2px_4px_rgb(99_102_241_/_0.8)]">
             {pharmacy.desc}
           </p>
-          <div className="flex justify-center items-center gap-3">
-            <Link to="/">
-              <Tooltip
-                content="Facebook"
-                placement="bottom"
-                animate={{
-                  mount: { scale: 1, y: 0 },
-                  unmount: { scale: 0, y: -25 },
-                }}
-                className=" bg-white px-4 py-2 bg-opacity-90 shadow-xl shadow-black/10 text-black font-medium"
-              >
-                <IconButton
-                  color="light-blue"
-                  size="md"
-                  className="bg-opacity-30 cursor-pointer border-2 p-3 rounded-full border-blue-gray-50 border-opacity-50 hover:border-opacity-100 hover:bg-opacity-50"
-                >
-                  <i className="fa-brands fa-facebook-f text-lg"></i>
-                </IconButton>
-              </Tooltip>
-            </Link>
-          </div>
         </div>
         <div className="w-full h-full absolute top-0 left-0 z-0 flex justify-center items-center overflow-hidden">
           <img
@@ -76,7 +55,7 @@ const PharmacyPage = () => {
             className="w-full object-cover"
           />
         </div>
-        <div className="bg-gradient-to-b from-blue-600 opacity-50 to-transparent w-full h-full absolute top-0 left-0 z-0"></div>
+        <div className="bg-gradient-to-b from-blue-600 opacity-90 to-blue-300 w-full h-full absolute top-0 left-0 z-0"></div>
       </section>
 
       {/* Filter products */}

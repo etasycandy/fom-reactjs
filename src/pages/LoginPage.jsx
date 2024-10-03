@@ -56,9 +56,9 @@ const LoginPage = () => {
 
   return (
     <div className="grid lg:grid-cols-2 items-center gap-10 p-8">
-      <Helmet>
+      {/* <Helmet>
         <title>FOM - Đăng nhập</title>
-      </Helmet>
+      </Helmet> */}
       <section className="order-2 lg:order-1 h-fit grid text-center items-center p-8 bg-white rounded-xl shadow-md">
         <Typography variant="h3" color="blue-gray" className="mb-2 mt-3">
           Sign In

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { images } from "../assets/images";
 import { useEffect, useState } from "react";
 import {
@@ -17,6 +17,7 @@ import {
 import categoriesData from "../assets/fake-data/categories";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../redux/action";
+import { Bounce, toast } from "react-toastify";
 
 const Header = () => {
   const categories = categoriesData.getAll();
@@ -71,6 +72,26 @@ const Header = () => {
       type: "UPDATE_QUANTITY",
       payload: { id: productId, quantity: -1 },
     });
+  };
+
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    if (cartItems.length > 0) {
+      navigate("/fom-reactjs/purchases");
+    } else {
+      toast.error(`Bạn chưa có sản phẩm nào trong giỏ hàng.`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
   };
 
   return (
@@ -645,6 +666,7 @@ const Header = () => {
               variant="gradient"
               color="blue"
               className="uppercase text-md mb-6"
+              onClick={handleCheckout}
             >
               Thanh toán
             </Button>

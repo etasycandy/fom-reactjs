@@ -69,6 +69,10 @@ const CartPage = () => {
         <div className="bg-gradient-to-b from-blue-600 opacity-50 to-transparent w-full h-full absolute top-0 left-0 z-0"></div>
       </section>
 
+      {/* <div>
+        <Typography>Chưa có gì trong giỏ hàng</Typography>
+      </div> */}
+
       {/* Content */}
       <section className="bg-white pb-8 antialiased pt-7">
         <div className="mx-auto px-5 container">
