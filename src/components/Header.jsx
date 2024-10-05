@@ -78,6 +78,7 @@ const Header = () => {
 
   const handleCheckout = () => {
     if (cartItems.length > 0) {
+      closeCart();
       navigate("/fom-reactjs/purchases");
     } else {
       toast.error(`Bạn chưa có sản phẩm nào trong giỏ hàng.`, {
@@ -445,29 +446,34 @@ const Header = () => {
           </svg>
         </div>
         <div className="flex flex-col overflow-scroll transition duration-500 h-[36rem]">
-          <div className="w-full bg-gradient-to-b from-[#458bec] to-[#2469de] py-3 px-5">
-            <p className="text-sm font-semibold text-white mb-3">
-              Đăng nhập để hưởng những đặc quyền dành riêng cho thành viên.
-            </p>
-            <Link to="/" className="mr-4">
-              <Button
-                className="rounded-full"
-                variant="gradient"
-                color="deep-orange"
-              >
-                Đăng nhập
-              </Button>
-            </Link>
-            <Link to="/">
-              <Button
-                className="rounded-full"
-                variant="gradient"
-                color="light-blue"
-              >
-                Đăng kí
-              </Button>
-            </Link>
-          </div>
+          {isLoggedIn ? (
+            ""
+          ) : (
+            <div className="w-full bg-gradient-to-b from-[#458bec] to-[#2469de] py-3 px-5">
+              <p className="text-sm font-semibold text-white mb-3">
+                Đăng nhập để hưởng những đặc quyền dành riêng cho thành viên.
+              </p>
+              <Link to="/fom-reactjs/login" className="mr-4">
+                <Button
+                  className="rounded-full"
+                  variant="gradient"
+                  color="deep-orange"
+                >
+                  Đăng nhập
+                </Button>
+              </Link>
+              <Link to="/fom-reactjs/login">
+                <Button
+                  className="rounded-full"
+                  variant="gradient"
+                  color="light-blue"
+                >
+                  Đăng kí
+                </Button>
+              </Link>
+            </div>
+          )}
+
           <form action="/" method="post" className="flex mx-5 my-4 md:hidden">
             <input
               type="text"
@@ -486,26 +492,17 @@ const Header = () => {
             </button>
           </form>
           <ul>
-            <Link to="/">
-              <li className="px-5 py-4 font-bold ">Thực phẩm chức năng</li>
-            </Link>
-            <Link to="">
-              <li className="px-5 py-4 font-bold ">Vật tư y tế</li>
-            </Link>
-            <Link to="">
-              <li className="px-5 py-4 font-bold ">Dược mỹ phẩm</li>
-            </Link>
-            <Link to="">
-              <li className="px-5 py-4 font-bold ">Chăm sóc cá nhân</li>
-            </Link>
-            <Link to="">
-              <li className="px-5 py-4 font-bold ">
-                Nhà thuốc tại các khu vực
-              </li>
-            </Link>
-            <Link to="">
-              <li className="px-5 py-4 font-bold ">Ưu đãi hiện có</li>
-            </Link>
+            {categories.map((category, index) => (
+              <Link
+                onClick={closeMobileMenu}
+                key={index}
+                to={`/fom-reactjs/categories/${category.slug}`}
+              >
+                <li className="px-5 py-4 font-bold " type="button">
+                  {category.name}
+                </li>
+              </Link>
+            ))}
           </ul>
         </div>
         <div className="bg-white sticky max-w-full z-10 pt-2 border-t-[1px]">
