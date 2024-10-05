@@ -11,6 +11,7 @@ import CategoriesPage from "./pages/CategoriesPage";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import PurchasesPage from "./pages/PurchasesPage";
+import Error404Page from "./pages/Error404Page";
 
 const MainLayout = () => {
   return (
@@ -61,6 +62,7 @@ function App() {
 
           <Route element={<AuthLayout />}>
             <Route path="/fom-reactjs/login" element={<LoginPage />} />
+            <Route path="/fom-reactjs/*" element={<Error404Page />} />
           </Route>
         </Routes>
       </BrowserRouter>

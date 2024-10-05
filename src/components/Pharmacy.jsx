@@ -60,7 +60,7 @@ const Pharmacy = () => {
                 className="item flex flex-col justify-center items-center gap-4 mx-5 font-bold text-lg"
                 key={index}
               >
-                <div className="bg-red-500 rounded-full w-44 h-44 flex justify-center items-center overflow-hidden">
+                <div className="bg-gray-300 bg-opacity-40 rounded-full w-44 h-44 flex justify-center items-center overflow-hidden">
                   <img
                     src={item.uri}
                     alt={item.slug}

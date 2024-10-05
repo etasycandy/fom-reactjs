@@ -39,7 +39,7 @@ const CategoriesPage = () => {
   }, [category]);
 
   return (
-    <>
+    <div className="mb-10">
       <section className="relative bg-white h-64 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]">
         <div className="h-64 py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative flex justify-center items-center">
           <h1 className="text-4xl stroke-2 stroke-blue-500 font-extrabold uppercase tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
@@ -170,7 +170,11 @@ const CategoriesPage = () => {
       </div>
 
       {/* Pagination */}
-      <div className="hidden sm:flex items-center justify-center gap-4 w-[90%] m-auto my-10">
+      <div
+        className={`hidden items-center justify-center gap-4 w-[90%] m-auto my-10 ${
+          products.length > 8 && "sm:flex"
+        }`}
+      >
         <Button
           color="blue"
           variant="text"
@@ -198,7 +202,7 @@ const CategoriesPage = () => {
           <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

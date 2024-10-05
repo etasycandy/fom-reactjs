@@ -22,7 +22,7 @@ const HomePage = () => {
           autoplay={true}
           loop={true}
           autoplayDelay={2500}
-          className="lg:rounded-xl w-full xl:w-2/3 h-full"
+          className="lg:rounded-xl w-full xl:w-2/3 h-full z-0"
         >
           {listImageCarousel.map(({ image, alt }, index) => {
             return (

@@ -61,7 +61,7 @@ const CartPage = () => {
         </div>
         <div className="w-full h-full absolute top-0 left-0 z-0 flex justify-center items-center overflow-hidden">
           <img
-            src={images.pharmacy.image1}
+            src={images.categories.banner1}
             alt="banner"
             className="w-full object-cover"
           />
@@ -233,7 +233,7 @@ const CartPage = () => {
               </div>
               <div className="mt-8 hidden lg:block">
                 <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">
-                  Flash sale
+                  Sản phẩm được mua nhiều
                 </h3>
                 <Carousel
                   responsive={responsive}
@@ -298,13 +298,17 @@ const CartPage = () => {
                   </dl>
                 </div>
 
-                <Button
-                  variant="gradient"
-                  color="blue"
-                  className="flex w-full items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300"
-                >
-                  Thanh toán
-                </Button>
+                <div>
+                  <Link to="/fom-reactjs/purchases">
+                    <Button
+                      variant="gradient"
+                      color="blue"
+                      className="flex w-full items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300"
+                    >
+                      Thanh toán
+                    </Button>
+                  </Link>
+                </div>
 
                 <div className="flex items-center justify-center gap-2">
                   <span className="text-sm font-normal text-gray-500 dark:text-gray-400">

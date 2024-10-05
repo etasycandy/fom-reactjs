@@ -89,7 +89,11 @@ const SuggestProducts = () => {
         </Tabs>
 
         {/* Pagination */}
-        <div className="hidden sm:flex items-center justify-center gap-4 w-[90%] m-auto">
+        <div
+          className={`hidden items-center justify-center gap-4 w-[90%] m-auto ${
+            data.length > 8 && "sm:flex"
+          }`}
+        >
           <Button
             color="blue"
             variant="text"

@@ -11,40 +11,74 @@ const Footer = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
             gravida, mi eu pulvinar cursus, sem elit interdum mauris.
           </p> */}
-        </div> 
+        </div>
 
         <div>
           <h4 className="text-lg font-semibold mb-4 text-white">Services</h4>
           <ul className="space-y-4">
             <li>
               <Link to="/" className="text-gray-100 hover:text-white text-base">
-                Web Development
+                Kênh người bán
               </Link>
             </li>
             <li>
               <Link to="/" className="text-gray-100 hover:text-white text-base">
-                Mobile App Development
+                Chính sách đổi trả
               </Link>
             </li>
             <li>
               <Link to="/" className="text-gray-100 hover:text-white text-base">
-                UI/UX Design
+                Liên hệ với truyền thông
               </Link>
             </li>
             <li>
               <Link to="/" className="text-gray-100 hover:text-white text-base">
-                Digital Marketing
+                Giao hàng nhanh
+              </Link>
+            </li>
+            <li>
+              <Link to="/" className="text-gray-100 hover:text-white text-base">
+                Tư Vấn 24/7
               </Link>
             </li>
           </ul>
         </div>
 
-        <div className="space-y-4">
-          <h4 className="text-lg font-semibold text-white">Contact Us</h4>
-          <p className="text-gray-100 text-base">856/7 Tôn Đức Thắng,</p>
-          <p className="text-gray-100 text-base">Liên Chiểu, Tp. Đà Nẵng</p>
-          <p className="text-gray-100 text-base">contact@example.com</p>
-          <p className="text-gray-100 text-base">+84 234 567 890</p>
+        <div>
+          <h4 className="text-lg font-semibold mb-4 text-white">Contact Us</h4>
+          <ul className="space-y-4">
+            <li>
+              <Link to="/" className="text-gray-100 hover:text-white text-base">
+                Điều khoản FOM
+              </Link>
+            </li>
+            <li>
+              <Link to="/" className="text-gray-100 hover:text-white text-base">
+                Giới thiệu về FOM
+              </Link>
+            </li>
+            <li>
+              <Link to="/" className="text-gray-100 hover:text-white text-base">
+                Chính sách bảo mật
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="mailto:fom.ecomm@gmail.com"
+                className="text-gray-100 hover:text-white text-base"
+              >
+                fom.ecomm@gmail.com
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="tel:+84 795714111"
+                className="text-gray-100 hover:text-white text-base"
+              >
+                +84 795 714 111
+              </Link>
+            </li>
+          </ul>
         </div>
 
         <div>

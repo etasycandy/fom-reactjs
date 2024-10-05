@@ -172,7 +172,11 @@ const PharmacyPage = () => {
       </div>
 
       {/* Pagination */}
-      <div className="hidden sm:flex items-center justify-center gap-4 w-[90%] m-auto my-10">
+      <div
+        className={`hidden items-center justify-center gap-4 w-[90%] m-auto my-10 ${
+          products.length > 8 && "sm:flex"
+        }`}
+      >
         <Button
           color="blue"
           variant="text"

@@ -277,6 +277,15 @@ const Header = () => {
                     <ul className="py-2 text-sm text-gray-700 dark:text-gray-200 border-y outline-none">
                       <li>
                         <Link
+                          to="/fom-reactjs/orders"
+                          className="px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+                        >
+                          <i className="fa-solid fa-truck h-5 w-5 -mb-1"></i>
+                          Đơn hàng
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
                           to="/fom-reactjs/like-list"
                           className="px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
                         >
